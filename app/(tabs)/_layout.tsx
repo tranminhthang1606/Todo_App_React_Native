@@ -1,45 +1,54 @@
-import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+    return (
+        <Tabs
+            screenOptions={{
+                tabBarActiveTintColor: Colors.light.primary,
+                tabBarInactiveTintColor: Colors.light.textSecondary,
+                tabBarStyle: {
+                    backgroundColor: Colors.light.background,
+                    borderTopColor: Colors.light.border,
+                },
+                headerStyle: {
+                    backgroundColor: Colors.light.background,
+                },
+                headerTintColor: Colors.light.text,
+                headerTitleStyle: {
+                    fontWeight: '700',
+                },
+            }}
+        >
+            <Tabs.Screen
+                name="index"
+                options={{
+                    title: 'Nhiệm vụ',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="list" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="categories"
+                options={{
+                    title: 'Danh mục',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="folder" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="settings"
+                options={{
+                    title: 'Cài đặt',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="settings" size={size} color={color} />
+                    ),
+                }}
+            />
+        </Tabs>
+    );
 }
